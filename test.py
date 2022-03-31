@@ -1,5 +1,5 @@
 def carre(x):
-  car=x**2
+  carre = x*x
   return car
 
 
