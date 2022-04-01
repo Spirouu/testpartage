@@ -1,0 +1,14 @@
+function [bruuni,brunor]= bruu(N,sigma, Moy, class, typebruit)
+
+%Bruit uniforme
+bruuni=sigma*rand(1,N)+ Moy
+
+
+%Bruit normal
+brunor=sigma*randn(1,N)+Moy
+
+
+
+
+
+bruZ=sigma*randZ(1,N)+Moy
