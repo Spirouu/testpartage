@@ -1,0 +1,123 @@
+function varargout = xminxmax(varargin)
+
+
+gui_Singleton = 1;
+gui_State = struct('gui_Name',       mfilename, ...
+                   'gui_Singleton',  gui_Singleton, ...
+                   'gui_OpeningFcn', @xminxmax_OpeningFcn, ...
+                   'gui_OutputFcn',  @xminxmax_OutputFcn, ...
+                   'gui_LayoutFcn',  [] , ...
+                   'gui_Callback',   []);
+if nargin && ischar(varargin{1})
+    gui_State.gui_Callback = str2func(varargin{1});
+end
+
+if nargout
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+else
+    gui_mainfcn(gui_State, varargin{:});
+end
+% End initialization code - DO NOT EDIT
+
+
+% --- Executes just before xminxmax is made visible.
+function xminxmax_OpeningFcn(hObject, eventdata, handles, varargin)
+% This function has no output args, see OutputFcn.
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% varargin   command line arguments to xminxmax (see VARARGIN)
+
+
+global xmin
+set(handles.slider1,'Value',xmin)
+
+% Choose default command line output for xminxmax
+handles.output = hObject;
+
+% Update handles structure
+guidata(hObject, handles);
+
+% UIWAIT makes xminxmax wait for user response (see UIRESUME)
+% uiwait(handles.figure1);
+
+
+% --- Outputs from this function are returned to the command line.
+function varargout = xminxmax_OutputFcn(hObject, eventdata, handles) 
+% varargout  cell array for returning output args (see VARARGOUT);
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Get default command line output from handles structure
+varargout{1} = handles.output;
+
+
+% --- Executes on slider movement.
+function slider1_Callback(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+global min
+global xmin                         % Hola Monsieur ! Bon ici rien de bien foufous, 
+global xmax  
+
+                                    % J'ai juste récupéré Xmax pour qu'il ne vari que lorsqu'il
+
+
+
+min=get(hObject,'Value')            % a moins de 10 points. Sinon je recupère la valeur du slider.
+xmin=round(min)                     % Je la stock, et la partage en global et je créé une variable  
+valmin=xmin+10                      % qui sera xmin + 10 pour définir la valeur minimale de xmax
+
+set(handles.text3,'String',['xmin = ', num2str(xmin)])
+set(handles.slider2,'Min',valmin)
+
+if xmax>valmin
+    set(handles.slider2,'Value',xmax)                       % Ici je compare juste afin de regarder si en modifiant 
+    set(handles.text2,'String',['xmax = ', num2str(xmax)])  % xmin je garde bien mes 10 points minimum et si ce n'est 
+else                                                        % pas le cas je change xmax
+    set(handles.slider2,'Value',valmin)
+    set(handles.text2,'String',['xmax = ', num2str(valmin)])
+end
+
+
+% --- Executes during object creation, after setting all properties.
+function slider1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% --- Executes on slider movement.
+function slider2_Callback(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+global max                          
+global xmax                         % Ici je récupère xmax et je le fait varier
+max=get(hObject,'Value')
+xmax=round(max)
+set(handles.text2,'String',['xmax = ', num2str(xmax)])
+
+% --- Executes during object creation, after setting all properties.
+function slider2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
