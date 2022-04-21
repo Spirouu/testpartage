@@ -1,0 +1,39 @@
+function [b0,b1]=extraction(x,yb) 
+%**********************************************************
+%** INPUT x
+%** INPUT yb
+%** INPUT debug
+%** OUTPUT sigma_estime
+%** OUTPUT r_carre
+%** OUTPUT S0
+%** OUTPUT S1
+%** OUTPUT yreg
+%** OUTPUT b0
+%** OUTPUT b1
+%***********************************************************
+%** exemple :
+%** [sigma_estime,r_carre,S0,S1,yreg,b0,b1] = simulation2(x,yb,debug);
+%** [b0,b1]=extraction([2 4 2 4 1 4 4 3 6 7],[ 2 54 6 3 7 0 9 6 5 8],10) 
+%***********************************************************
+%** Théo Laura Philippe **%
+%***********************************************************
+%load tableforextraction.mat
+%load tablexy.mat
+
+x=x(:);
+yb=yb(:);
+
+% réflexion sur la taille
+%b0=(((sum(x.^2).*sum(yb))-(sum(x).*sum(x.*yb)))/((N*sum(x.^2))-((sum(x)).^2)))
+%b1=((N*sum(x.*yb))-(sum(x).*sum(yb))/((N*sum(x.^2))-((sum(x)).^2)))
+
+N=length(x);
+M=length(yb);
+if M==N 
+    %On ne détaille pas le cas ou il sont différents car pas le time
+    
+
+
+
+
+end
